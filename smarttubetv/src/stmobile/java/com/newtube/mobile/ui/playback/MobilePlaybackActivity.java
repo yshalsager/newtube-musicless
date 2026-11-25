@@ -6711,6 +6711,15 @@ public class MobilePlaybackActivity extends MobileActivity
         if (mRelatedSkeleton == null) {
             return;
         }
+        Video video = getVideo();
+        if (video != null && video.videoId == null && video.isLocal()) {
+            // NEWTUBE(local-media): a file from the phone has no "Up next" feed to wait for.
+            hideRelatedSkeleton();
+            if (mWatchRelatedLabel != null) {
+                mWatchRelatedLabel.setVisibility(View.GONE);
+            }
+            return;
+        }
         mRelatedSkeleton.setVisibility(View.VISIBLE); // it shimmers itself (ShimmerLinearLayout)
         Utils.removeCallbacks(mHideSkeletonTimeout);
         Utils.postDelayed(mHideSkeletonTimeout, SKELETON_TIMEOUT_MS);
