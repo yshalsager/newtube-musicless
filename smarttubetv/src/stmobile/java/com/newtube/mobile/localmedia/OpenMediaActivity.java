@@ -12,6 +12,7 @@ public final class OpenMediaActivity extends Activity {
         Uri uri = getIntent().getData();
         if (uri != null) {
             LocalMedia.play(this, uri);
+            com.newtube.mobile.ui.playback.SystemPipBridge.routeIn(this);
         }
         finish();
     }

@@ -2,6 +2,7 @@ package com.newtube.mobile.ui.playback;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -173,6 +174,22 @@ public final class SystemPipBridge {
                 .setAction(ACTION_RESTORE_FROM_PIP)
                 .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         player.startActivity(restore);
+    }
+
+    /**
+     * NEWTUBE(local-media): "Open with" hands a file to a player that may be on screen or in PiP.
+     * ViewManager skips relaunching a player it sees on top, so the player never got the new
+     * intent that keeps it out of PiP (see MobilePlaybackActivity.mRoutedInWhileLeaving) or
+     * expands an entered PiP. Relaunch it like a shared link does.
+     */
+    public static void routeIn(Context context) {
+        MobilePlaybackActivity player = sActivity.get();
+        if (player == null || player.isFinishing() || player.isDestroyed()) {
+            return;
+        }
+        context.startActivity(new Intent(context, MobilePlaybackActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }
 
     /** True for our own expand request (so it is never mistaken for a new video being routed in). */
