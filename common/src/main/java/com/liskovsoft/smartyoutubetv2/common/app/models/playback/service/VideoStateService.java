@@ -68,6 +68,10 @@ public class VideoStateService implements ProfileChangeListener {
     }
 
     public State getByVideoId(String videoId) {
+        if (videoId == null) {
+            return null; // NEWTUBE(local-media): phone files have no id; they would all match
+        }
+
         for (State state : mStates) {
             if (Helpers.equals(videoId, state.video.videoId)) {
                 return state;

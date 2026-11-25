@@ -11,6 +11,7 @@ import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.BasePlayerController;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerUI;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService.State;
+import com.liskovsoft.smartyoutubetv2.common.misc.LocalPositions;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.AppDialogPresenter;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.FormatItem;
 import com.liskovsoft.smartyoutubetv2.common.misc.MediaServiceManager;
@@ -541,6 +542,10 @@ public class VideoStateController extends BasePlayerController {
         long remainsMs = durationMs - positionMs;
         boolean isPositionActual = remainsMs > 1_000;
         boolean isLiveBroken = video.isLive && durationMs <= 30_000; // the live without a history
+        if (video.videoId == null && video.isLocal()) { // NEWTUBE(local-media): a phone file
+            LocalPositions.save(getContext(), video.localUri, isPositionActual ? positionMs : 0);
+            return;
+        }
         if (isPositionActual && !isLiveBroken) { // partially viewed
             State state = new State(video, positionMs, durationMs, getPlayer().getSpeed());
             getStateService().save(state);
@@ -563,6 +568,10 @@ public class VideoStateController extends BasePlayerController {
         }
 
         State state = getStateService().getByVideoId(item.videoId);
+        if (item.videoId == null && item.isLocal()) { // NEWTUBE(local-media): a phone file
+            long positionMs = LocalPositions.get(getContext(), item.localUri);
+            state = positionMs > 0 ? new State(item, positionMs) : null;
+        }
 
         boolean stateIsOutdated = isStateOutdated(state, item);
         if (stateIsOutdated) { // check that the user logged in
