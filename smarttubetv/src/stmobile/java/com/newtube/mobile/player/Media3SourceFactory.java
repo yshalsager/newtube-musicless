@@ -28,6 +28,7 @@ import androidx.media3.exoplayer.dash.DefaultDashChunkSource;
 import androidx.media3.exoplayer.dash.manifest.DashManifest;
 import androidx.media3.exoplayer.dash.manifest.DashManifestParser;
 import androidx.media3.exoplayer.hls.HlsMediaSource;
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
 import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.MergingMediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
@@ -1200,10 +1201,7 @@ public class Media3SourceFactory {
 
         Uri uri = Uri.parse(urlList.get(0));
         if (isLocalUri(uri)) {
-            // NEWTUBE(downloads): a downloaded file. The HTTP/cache tiers cannot open content://
-            // or file:// - DefaultDataSource routes those to the content and file readers.
-            return new ProgressiveMediaSource.Factory(new DefaultDataSource.Factory(mContext))
-                    .createMediaSource(MediaItem.fromUri(uri));
+            return fromLocal(uri, null);
         }
 
         return new ProgressiveMediaSource.Factory(
@@ -1212,7 +1210,23 @@ public class Media3SourceFactory {
                 .createMediaSource(MediaItem.fromUri(uri));
     }
 
-    private static boolean isLocalUri(Uri uri) {
+    /**
+     * NEWTUBE(downloads): a downloaded or phone file. The HTTP/cache tiers cannot open content://
+     * or file:// - DefaultDataSource routes those to the content and file readers. With a
+     * subtitle file picked in the player, DefaultMediaSourceFactory adds it as a text track.
+     */
+    MediaSource fromLocal(Uri uri, @Nullable MediaItem.SubtitleConfiguration subtitle) {
+        DefaultDataSource.Factory files = new DefaultDataSource.Factory(mContext);
+        if (subtitle == null) {
+            return new ProgressiveMediaSource.Factory(files).createMediaSource(MediaItem.fromUri(uri));
+        }
+        return new DefaultMediaSourceFactory(files).createMediaSource(new MediaItem.Builder()
+                .setUri(uri)
+                .setSubtitleConfigurations(java.util.Collections.singletonList(subtitle))
+                .build());
+    }
+
+    static boolean isLocalUri(Uri uri) {
         String scheme = uri.getScheme();
         return "content".equals(scheme) || "file".equals(scheme);
     }

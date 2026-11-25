@@ -180,6 +180,9 @@
 
     <!-- Captions sheet (sheet_mobile_captions / showCaptionsSheet) + CC toggle snackbar -->
     <string name="mobile_captions_off">Turn off subtitles</string>
+    <string name="mobile_captions_add_file">Add subtitle file</string>
+    <string name="mobile_captions_file_unsupported">Unsupported subtitle file. Use .srt, .vtt, .ass or .ttml</string>
+    <string name="mobile_captions_file_failed">Couldn\'t load the subtitle file</string>
     <string name="mobile_captions_empty">No subtitles available for this video</string>
     <string name="mobile_captions_style">Caption style &amp; size</string>
     <string name="mobile_captions_on_toast">Subtitles on (%1$s)</string>

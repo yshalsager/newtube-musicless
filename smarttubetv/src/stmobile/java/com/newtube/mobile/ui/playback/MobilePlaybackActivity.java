@@ -434,6 +434,7 @@ public class MobilePlaybackActivity extends MobileActivity
     // Picture-in-Picture play/pause RemoteAction wiring.
     private static final String ACTION_PIP_TOGGLE = "com.newtube.mobile.action.PIP_TOGGLE";
     private static final int PIP_REQUEST_TOGGLE = 700;
+    private static final int REQUEST_SUBTITLE_FILE = 7302;
     /** Sentinel for {@link #mPrePipOrientation}: no orientation was captured. */
     private static final int ORIENTATION_NONE = Integer.MIN_VALUE;
     private BroadcastReceiver mPipReceiver;
@@ -7602,8 +7603,16 @@ public class MobilePlaybackActivity extends MobileActivity
                 dialog.dismiss();
             });
         }
+        Video playing = getVideo();
+        boolean local = playing != null && playing.isLocal();
+        if (local) {
+            addQualityRow(trackList, getString(R.string.mobile_captions_add_file), false, () -> {
+                dialog.dismiss();
+                startActivityForResult(com.newtube.mobile.localmedia.SubtitleFile.pickIntent(), REQUEST_SUBTITLE_FILE);
+            });
+        }
 
-        if (tracks.isEmpty()) {
+        if (tracks.isEmpty() && !local) {
             content.findViewById(R.id.captions_sheet_empty).setVisibility(View.VISIBLE);
         }
 
@@ -7617,6 +7626,63 @@ public class MobilePlaybackActivity extends MobileActivity
         });
 
         showPlayerSheet(dialog);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SUBTITLE_FILE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            loadSubtitleFile(data.getData());
+        }
+    }
+
+    /** Copies the picked file off the main thread, adds it to the playing file and turns it on. */
+    private void loadSubtitleFile(android.net.Uri uri) {
+        Video target = getVideo();
+        String targetUri = target != null ? target.localUri : null;
+        new Thread(() -> {
+            String name = com.newtube.mobile.localmedia.LocalMedia.displayName(this, uri);
+            String mimeType = com.newtube.mobile.localmedia.SubtitleFile.mimeType(name);
+            java.io.File copy = null;
+            if (mimeType != null) {
+                try {
+                    copy = com.newtube.mobile.localmedia.SubtitleFile.copyAsUtf8(this, uri, name);
+                } catch (java.io.IOException | SecurityException e) {
+                    android.util.Log.w("SubtitleFile", "subtitle file " + uri + ": " + e);
+                }
+            }
+            java.io.File file = copy;
+            runOnUiThread(() -> {
+                Video playing = getVideo();
+                if (isFinishing() || playing == null || !Helpers.equals(targetUri, playing.localUri)) {
+                    return; // another file was opened while this one was copying
+                }
+                if (mimeType == null) {
+                    android.widget.Toast.makeText(this, R.string.mobile_captions_file_unsupported, android.widget.Toast.LENGTH_LONG).show();
+                } else if (file == null || mExoPlayerController == null
+                        || !mExoPlayerController.addSubtitleFile(android.net.Uri.fromFile(file), mimeType, name)) {
+                    android.widget.Toast.makeText(this, R.string.mobile_captions_file_failed, android.widget.Toast.LENGTH_LONG).show();
+                } else {
+                    selectSubtitleWhenLoaded(name, 20);
+                }
+            });
+        }, "subtitle-file").start();
+    }
+
+    /** The reopened source lists its tracks a moment later; select the added one then. */
+    private void selectSubtitleWhenLoaded(String label, int triesLeft) {
+        List<FormatItem> formats = getSubtitleFormats();
+        if (formats != null) {
+            for (FormatItem item : formats) {
+                if (isCaptionTrack(item) && label.equals(item.getLanguage())) {
+                    applyCaptionFormat(item);
+                    return;
+                }
+            }
+        }
+        if (triesLeft > 0 && !isFinishing()) {
+            mSubtitlesButton.postDelayed(() -> selectSubtitleWhenLoaded(label, triesLeft - 1), 250);
+        }
     }
 
     /** Trailing value for the gear menu's Subtitles row: the active track, or "Off". */

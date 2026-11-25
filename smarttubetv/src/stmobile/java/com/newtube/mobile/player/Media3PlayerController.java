@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 import androidx.media3.common.C;
+import androidx.media3.common.MediaItem;
 import androidx.media3.common.Format;
 import androidx.media3.common.PlaybackException;
 import androidx.media3.common.PlaybackParameters;
@@ -66,6 +67,9 @@ public class Media3PlayerController implements Player.Listener {
 
     private final Context mContext;
     private boolean mNextSourceVoicesOnly;
+    /** The playing source when it is one local file (download or phone file), for addSubtitleFile. */
+    private Uri mLocalUri;
+    private Uri mNextLocalUri;
     private final Media3SourceFactory mMediaSourceFactory;
     private final PlayerEventListener mEventListener;
     private final Handler mMainHandler = new Handler(Looper.getMainLooper());
@@ -462,10 +466,34 @@ public class Media3PlayerController implements Player.Listener {
         openMediaSource(mMediaSourceFactory.fromHlsPlaylist(hlsPlaylistUrl), "hls");
     }
 
+    /**
+     * Reopens the playing download or phone file with {@code subtitle} as a text track, at the
+     * same position. Returns false when the current source is not a local file.
+     */
+    public boolean addSubtitleFile(Uri subtitle, String mimeType, String label) {
+        if (mPlayer == null || mLocalUri == null) {
+            return false;
+        }
+        MediaItem.SubtitleConfiguration config = new MediaItem.SubtitleConfiguration.Builder(subtitle)
+                .setMimeType(mimeType)
+                .setLabel(label)
+                .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
+                .build();
+        long positionMs = mPlayer.getCurrentPosition();
+        if (mTrackAdapter != null) {
+            mTrackAdapter.onSourceChanged();
+        }
+        mPlayer.setMediaSource(mMediaSourceFactory.fromLocal(mLocalUri, config), positionMs);
+        mPlayer.prepare();
+        return true;
+    }
+
     public void openUrlList(List<String> urlList) {
         mReadinessAnswer = null;
         mNextSourceVoicesOnly = urlList != null && urlList.size() == 1
                 && com.newtube.mobile.downloads.DownloadRegistry.instance(mContext).isVoicesOnly(urlList.get(0));
+        mNextLocalUri = urlList != null && urlList.size() == 1
+                && Media3SourceFactory.isLocalUri(Uri.parse(urlList.get(0))) ? Uri.parse(urlList.get(0)) : null;
         openMediaSource(mMediaSourceFactory.fromUrlList(urlList), "progressive");
     }
 
@@ -541,6 +569,8 @@ public class Media3PlayerController implements Player.Listener {
         // Every source goes through here, so anything but a voices-only download is separated.
         boolean voicesOnly = mNextSourceVoicesOnly;
         mNextSourceVoicesOnly = false;
+        mLocalUri = mNextLocalUri;
+        mNextLocalUri = null;
         if (mPlayer == null) {
             // Nothing downstream reports this, so without a line here the open simply evaporates:
             // no prepare, no error, no NetPath milestone - just a player stuck at 00:00.

@@ -128,6 +128,9 @@
     <string name="mobile_audio_role_descriptive">وصف صوتي</string>
     <string name="mobile_audio_track_toast">المقطع الصوتي: %1$s</string>
     <string name="mobile_captions_off">إيقاف الترجمة</string>
+    <string name="mobile_captions_add_file">إضافة ملف ترجمة</string>
+    <string name="mobile_captions_file_unsupported">ملف الترجمة غير مدعوم. استخدم ملفات srt أو vtt أو ass أو ttml</string>
+    <string name="mobile_captions_file_failed">تعذّر تحميل ملف الترجمة</string>
     <string name="mobile_captions_empty">لا تتوفر ترجمة لهذا الفيديو</string>
     <string name="mobile_captions_style">نمط الترجمة وحجمها</string>
     <string name="mobile_captions_on_toast">الترجمة مفعّلة (%1$s)</string>

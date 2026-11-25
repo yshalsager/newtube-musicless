@@ -50,7 +50,7 @@ public final class LocalMedia {
         }
     }
 
-    private static String displayName(Context context, Uri uri) {
+    public static String displayName(Context context, Uri uri) {
         try (Cursor cursor = context.getContentResolver().query(uri,
                 new String[] {OpenableColumns.DISPLAY_NAME}, null, null, null)) {
             if (cursor != null && cursor.moveToFirst() && !cursor.isNull(0)) {
