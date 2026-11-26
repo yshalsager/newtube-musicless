@@ -1,0 +1,10 @@
+// The paid-account switch. Local.xcconfig sets PAID_TEAM = YES or NO; xcconfig has no
+// conditionals, so each switched setting picks a variant by name: $(NAME_$(PAID_TEAM)).
+//
+// Free Apple ID: only what a Personal Team can sign (the core app, Background Modes).
+// Paid account: adds the memory entitlements (Phase 1), App Groups and the extensions (Phase 6).
+// Phase 0 has no paid-only capability yet, so both entitlement files are still empty.
+
+MUSICLESS_ENTITLEMENTS_NO = App/Musicless.entitlements
+MUSICLESS_ENTITLEMENTS_YES = App/MusiclessPaid.entitlements
+CODE_SIGN_ENTITLEMENTS = $(MUSICLESS_ENTITLEMENTS_$(PAID_TEAM))

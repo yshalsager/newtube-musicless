@@ -1,0 +1,13 @@
+// Copy to Local.xcconfig (bootstrap.sh does it) and fill in. Local.xcconfig is gitignored.
+
+// Your Team ID: Xcode > Settings > Accounts > your team, or developer.apple.com > Membership.
+// A free Apple ID works too: its "Personal Team" has a Team ID as well.
+DEVELOPMENT_TEAM =
+
+// Reverse-DNS prefix you own or make up; the app id becomes <prefix>.musicless.
+// Bundle ids are global: pick one nobody else registered, e.g. io.github.<your-github-name>.
+BUNDLE_ID_PREFIX = io.github.yourname
+
+// YES only with a paid Apple Developer Program membership (unlocks the capabilities in
+// Paid.xcconfig). NO with a free Apple ID.
+PAID_TEAM = NO

@@ -1,0 +1,88 @@
+# XcodeGen spec (decision D10): `./bootstrap.sh` or `xcodegen generate` writes Musicless.xcodeproj,
+# which is gitignored. Identity settings (team, bundle id, version) come from Config/*.xcconfig.
+name: Musicless
+
+options:
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+packages:
+  MusiclessCore:
+    path: Packages/MusiclessCore
+  YouTubeEngine:
+    path: Packages/YouTubeEngine
+  MediaPipeline:
+    path: Packages/MediaPipeline
+
+targets:
+  Musicless:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    configFiles:
+      Debug: Config/Base.xcconfig
+      Release: Config/Base.xcconfig
+    sources:
+      - path: App
+        excludes:
+          - "*.entitlements"
+    dependencies:
+      - package: MusiclessCore
+      - package: YouTubeEngine
+      - package: MediaPipeline
+    settings:
+      base:
+        INFOPLIST_FILE: App/Info.plist
+        PRODUCT_NAME: Musicless
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        # The commit-stamp phase reads .git and edits the processed Info.plist, both outside
+        # what a sandboxed script may touch (DECISIONS.md, D13).
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        # US-025: the compiler lists every localizable string (the .stringsdata the import tool reads),
+        # and the string catalog builds into en/ar .lproj folders.
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    postBuildScripts:
+      - name: Stamp git commit
+        basedOnDependencyAnalysis: false
+        # The input orders this phase after ProcessInfoPlistFile, which would otherwise overwrite it.
+        inputFiles:
+          - $(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)
+        shell: /bin/sh
+        script: |
+          # Writes the git short SHA (with -dirty when ios/ has uncommitted changes) into the built
+          # Info.plist as GitCommit; the placeholder screen and the probe report show it.
+          plist="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+          sha=$(git -C "${SRCROOT}" rev-parse --short HEAD 2>/dev/null || echo unknown)
+          if [ "$sha" != unknown ] && [ -n "$(git -C "${SRCROOT}" status --porcelain -- . 2>/dev/null)" ]; then
+            sha="${sha}-dirty"
+          fi
+          /usr/libexec/PlistBuddy -c "Set :GitCommit ${sha}" "$plist" 2>/dev/null \
+            || /usr/libexec/PlistBuddy -c "Add :GitCommit string ${sha}" "$plist"
+
+schemes:
+  Musicless:
+    build:
+      targets:
+        Musicless: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - package: MusiclessCore/MusiclessCoreTests
+        - package: YouTubeEngine/YouTubeEngineTests
+        - package: MediaPipeline/MediaPipelineTests
+    archive:
+      config: Release

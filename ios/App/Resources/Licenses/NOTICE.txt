@@ -1,0 +1,18 @@
+Musicless feasibility prototype
+
+The optional downloaded vocals.onnx and accompaniment.onnx are the Deezer
+Spleeter 2-stem ONNX exports from k2-fsa/sherpa-onnx. prepare_models.py makes
+the frame dimension symbolic and stores weights as fp16 with Cast-to-fp32 nodes;
+arithmetic and input/output remain fp32. Model weights are not inside this APK.
+Decompressed vocals SHA-256: f6fce89a06c9a98846e1b38e45dcd79ade2c256c3ce11119b33474da726be552
+Decompressed accompaniment SHA-256: 5e3f3048bf2936658a9ab3a9742b2e24765a06cc6c6c7de638aa93ea86330a45
+Source archive SHA-256: e26401d9c1801f43c0229731d78d32c2e80085e3aceedeb25f29d2de5fa68ca2
+Source archive: https://github.com/k2-fsa/sherpa-onnx/releases/download/source-separation-models/sherpa-onnx-spleeter-2stems.tar.bz2
+
+The v/(v+2a) mask and DSP derive from ieasybooks/musicless commit
+957acc1bd251a80f8d31639d8da6fd512cc4d2ab; see LICENSE-Musicless.
+Models are MIT licensed; see LICENSE-Spleeter.
+ONNX Runtime Android is distributed under the MIT license by Microsoft;
+LICENSE-ONNXRuntime and ThirdPartyNotices-ONNXRuntime.txt are from the matching
+1.32.0 Python distribution. The AAR's classes.jar also includes LICENSE-1DS.
+This prototype is not affiliated with Deezer, Microsoft, or Musicless.

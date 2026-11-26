@@ -1,0 +1,74 @@
+{
+  "playabilityStatus" : {
+    "playableInEmbed" : true,
+    "reason" : "This live stream recording is not available.",
+    "status" : "UNPLAYABLE"
+  },
+  "videoDetails" : {
+    "allowRatings" : true,
+    "author" : "Lofi Girl",
+    "channelId" : "UCSJ4gkVC6NrvII8umztf0Ow",
+    "isCrawlable" : true,
+    "isLiveContent" : true,
+    "isLowLatencyLiveStream" : false,
+    "isOwnerViewing" : false,
+    "isPostLiveDvr" : true,
+    "isPrivate" : false,
+    "isTvfilmVideo" : false,
+    "isUnpluggedCorpus" : false,
+    "keywords" : [
+      "lo-fi",
+      "lo fi",
+      "lofi",
+      "lofi hiphop",
+      "lo-fi hiphop",
+      "lo fi hiphop",
+      "hiphop",
+      "hip hop",
+      "lofi hip hop",
+      "lo-fi hip hop",
+      "lo fi hip hop",
+      "lofi radio",
+      "lo-fi radio",
+      "lo fi radio",
+      "lofi hip hop radio",
+      "lo-fi hip hop radio",
+      "lo fi hip hop radio",
+      "chilledcow",
+      "chilled cow",
+      "chilledcow radio",
+      "chilled cow radio",
+      "chilledcow station",
+      "lofi radio chilledcow",
+      "chillhop",
+      "study music",
+      "lofi hip hop radio - beats to relax\\\/study to",
+      "beats to relax",
+      "music to study",
+      "radio",
+      "relaxing music",
+      "playlist",
+      "music"
+    ],
+    "latencyClass" : "MDE_STREAM_OPTIMIZATIONS_RENDERER_LATENCY_NORMAL",
+    "lengthSeconds" : "121601512",
+    "shortDescription" : "🎼 | Listen on Spotify, Apple music and more\n→  https:\/\/link.lofigirl.com\/m\/music\n\n🌎 | Lofi Girl on all social media\n→  https:\/\/link.lofigirl.com\/m\/Community\n\n🌐| Our Websites\n→  https:\/\/link.lofigirl.com\/m\/website\n\n👕 | Lofi Girl merch\n→  https:\/\/link.lofigirlshop.com\/shop\n\n🎮 | Our video games\n→ https:\/\/link.lofigirl.com\/m\/games\n\n🎭 | Create your lofi avatar now\n→  https:\/\/lofigirl.com\/generator\/\n\n🎨 | Art by Lofi Studio (full list of artists here)\n→  https:\/\/www.instagram.com\/p\/CuChqFXs08M\/\n\n🤗 Thank you for listening, I hope you will have a good time here\n\n🧡All visuals and music in this video are 100% crafted by talented human artists, without the use of AI. We’re committed to delivering genuine, hand-made creations for our audience to enjoy.",
+    "thumbnail" : {
+      "thumbnails" : [
+        {
+          "height" : 180,
+          "url" : "https:\/\/i.ytimg.com\/vi\/jfKfPfyJRdk\/mqdefault.jpg?v=6911ace0",
+          "width" : 320
+        },
+        {
+          "height" : 720,
+          "url" : "https:\/\/i.ytimg.com\/vi\/jfKfPfyJRdk\/hq720.jpg?v=6911ace0",
+          "width" : 1280
+        }
+      ]
+    },
+    "title" : "lofi hip hop radio 📚 beats to relax\/study to",
+    "videoId" : "jfKfPfyJRdk",
+    "viewCount" : "651847123"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "files" : [
+    {
+      "contentLength" : 10271496,
+      "indexRange" : [
+        723,
+        1522
+      ],
+      "initRange" : [
+        0,
+        722
+      ],
+      "itag" : 140,
+      "mimeType" : "audio\/mp4; codecs=\"mp4a.40.2\"",
+      "references" : 64,
+      "segments" : [
+        {
+          "duration" : 440320,
+          "end" : 163508,
+          "start" : 1523,
+          "startTime" : 0
+        },
+        {
+          "duration" : 440320,
+          "end" : 324979,
+          "start" : 163509,
+          "startTime" : 440320
+        }
+      ],
+      "timescale" : 44100
+    },
+    {
+      "contentLength" : 4323893,
+      "indexRange" : [
+        739,
+        2246
+      ],
+      "initRange" : [
+        0,
+        738
+      ],
+      "itag" : 160,
+      "mimeType" : "video\/mp4; codecs=\"avc1.4D400C\"",
+      "references" : 123,
+      "segments" : [
+        {
+          "duration" : 61952,
+          "end" : 10576,
+          "start" : 2247,
+          "startTime" : 0
+        },
+        {
+          "duration" : 66560,
+          "end" : 23470,
+          "start" : 10577,
+          "startTime" : 61952
+        }
+      ],
+      "timescale" : 15360
+    }
+  ],
+  "licence" : "CC BY 3.0, Blender Foundation",
+  "video" : "aqz-KE-bpKQ"
+}

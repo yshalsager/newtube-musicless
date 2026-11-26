@@ -1,0 +1,43 @@
+{
+  "playabilityStatus" : {
+    "desktopLegacyAgeGateReason" : 1,
+    "reason" : "Sign in to confirm your age",
+    "status" : "LOGIN_REQUIRED"
+  },
+  "videoDetails" : {
+    "allowRatings" : true,
+    "author" : "Eliass Kevrelis",
+    "channelId" : "UCy51RIt1okiROEt1MQtmf7g",
+    "isCrawlable" : true,
+    "isLiveContent" : false,
+    "isOwnerViewing" : false,
+    "isPrivate" : false,
+    "isTvfilmVideo" : false,
+    "isUnpluggedCorpus" : false,
+    "keywords" : [
+      "07",
+      "Rammstein",
+      "Pussy",
+      "2009"
+    ],
+    "lengthSeconds" : "242",
+    "shortDescription" : "“Pussy” is a provocative and satirical song by the German industrial metal band Rammstein, released in 2009 as the lead single from their album \"Liebe ist für alle da\". The song combines English and German lyrics and explores themes of sexual freedom, consumerism, and sex tourism, delivered with Rammstein’s signature mix of dark humor and theatrical intensity.\n\nThe lyrics are intentionally explicit and straightforward, portraying a character who seeks quick, emotionless sexual encounters while traveling abroad. It can be interpreted as a critique of superficial relationships and the commodification of sex in modern society.\n\nThe chorus features the infamous line:\n“You've got a pussy, I have a dick – so what's the problem? Let's do it quick!”\nThis blunt phrasing, mixed with catchy industrial rock elements, makes the song both shocking and satirical.\n\nThe accompanying music video caused major controversy due to its explicit sexual content, and an uncensored version was released only on adult platforms.\n\nDespite (or because of) its controversy, \"Pussy\" became Rammstein’s first No. 1 single in Germany and remains one of their most talked-about tracks.",
+    "thumbnail" : {
+      "thumbnails" : [
+        {
+          "height" : 180,
+          "url" : "https:\/\/i.ytimg.com\/vi\/qkO6iBwcoe4\/mqdefault.jpg",
+          "width" : 320
+        },
+        {
+          "height" : 720,
+          "url" : "https:\/\/i.ytimg.com\/vi\/qkO6iBwcoe4\/hq720.jpg",
+          "width" : 1280
+        }
+      ]
+    },
+    "title" : "Rammstein - ''Pussy'' - (OFFICIAL VIDEO) -  [FIXED AUDIO] - (English CC)",
+    "videoId" : "qkO6iBwcoe4",
+    "viewCount" : "1391993"
+  }
+}

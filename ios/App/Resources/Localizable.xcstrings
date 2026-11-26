@@ -1,0 +1,1666 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ likes": {
+      "comment": "Android: mobile_comment_likes",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ إعجاب"
+          }
+        }
+      }
+    },
+    "%@×": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@×"
+          }
+        }
+      }
+    },
+    "%lld replies": {
+      "comment": "Android: mobile_comments_replies (plurals)",
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ردود"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ردًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "رد واحد"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld رد"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ردّان"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا توجد ردود"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld reply"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld replies"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "About": {
+      "comment": "Android: mobile_settings_about",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حول التطبيق"
+          }
+        }
+      }
+    },
+    "Audio only": {
+      "comment": "Android: mobile_download_audio_only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصوت فقط"
+          }
+        }
+      }
+    },
+    "Back 10 seconds": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رجوع 10 ثوانٍ"
+          }
+        }
+      }
+    },
+    "Background play": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التشغيل في الخلفية"
+          }
+        }
+      }
+    },
+    "Best": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأفضل"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "comment": "Android: mobile_comments_delete_cancel",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء"
+          }
+        }
+      }
+    },
+    "Cancelled": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم الإلغاء"
+          }
+        }
+      }
+    },
+    "Channel": {
+      "comment": "Android: content_type_channel",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قناة"
+          }
+        }
+      }
+    },
+    "Check your connection and try again.": {
+      "comment": "Android: mobile_update_check_failed_body",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحقق من الاتصال وحاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "Clear search history": {
+      "comment": "Android: mobile_settings_clear_search_history",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محو سجلّ البحث"
+          }
+        }
+      }
+    },
+    "Close full screen": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إغلاق ملء الشاشة"
+          }
+        }
+      }
+    },
+    "Collapses the description": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يطوي الوصف"
+          }
+        }
+      }
+    },
+    "Comments": {
+      "comment": "Android: mobile_comments_entry",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التعليقات"
+          }
+        }
+      }
+    },
+    "Comments · %@": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التعليقات · %@"
+          }
+        }
+      }
+    },
+    "Commit": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإيداع"
+          }
+        }
+      }
+    },
+    "Continue with Google": {
+      "comment": "Android: mobile_signin_open_button",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المتابعة باستخدام Google"
+          }
+        }
+      }
+    },
+    "Copied": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم النسخ"
+          }
+        }
+      }
+    },
+    "Copy code": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نسخ الرمز"
+          }
+        }
+      }
+    },
+    "Copy report": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نسخ التقرير"
+          }
+        }
+      }
+    },
+    "Couldn't load comments. Try again": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل التعليقات. حاول مرة أخرى"
+          }
+        }
+      }
+    },
+    "Couldn't load the channel": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل القناة"
+          }
+        }
+      }
+    },
+    "Couldn't load the details. Try again": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل التفاصيل. حاول مرة أخرى"
+          }
+        }
+      }
+    },
+    "Couldn't load the feed": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل الخلاصة"
+          }
+        }
+      }
+    },
+    "Couldn't load the playlist": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل قائمة التشغيل"
+          }
+        }
+      }
+    },
+    "Couldn't remove the music": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت إزالة الموسيقى"
+          }
+        }
+      }
+    },
+    "Couldn't sign in. Check your connection and try again.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تسجيل الدخول. تحقق من الاتصال وحاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "Debug": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصحيح الأخطاء"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "comment": "Android: mobile_comments_delete",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف"
+          }
+        }
+      }
+    },
+    "Device probe": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فحص الجهاز"
+          }
+        }
+      }
+    },
+    "Done": {
+      "comment": "Android: mobile_add_device_done",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم"
+          }
+        }
+      }
+    },
+    "Download": {
+      "comment": "Android: dialog_download",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنزيل"
+          }
+        }
+      }
+    },
+    "Download failed. Try again.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فشل التنزيل. حاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "Download started": {
+      "comment": "Android: mobile_download_started",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بدأ التنزيل"
+          }
+        }
+      }
+    },
+    "Download the voice models again?": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل تريد تنزيل نماذج الصوت مرة أخرى؟"
+          }
+        }
+      }
+    },
+    "Download without music": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنزيل بدون موسيقى"
+          }
+        }
+      }
+    },
+    "Downloaded": {
+      "comment": "Android: mobile_download_done",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم التنزيل"
+          }
+        }
+      }
+    },
+    "Downloaded without music": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم التنزيل بدون موسيقى"
+          }
+        }
+      }
+    },
+    "Downloading": {
+      "comment": "Android: mobile_download_badge_downloading",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ التنزيل"
+          }
+        }
+      }
+    },
+    "Downloading voice models…": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ تنزيل نماذج الصوت…"
+          }
+        }
+      }
+    },
+    "Downloading voice models… %lld%%": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ تنزيل نماذج الصوت… %lld%%"
+          }
+        }
+      }
+    },
+    "Downloads": {
+      "comment": "Android: mobile_download_channel_name",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التنزيلات"
+          }
+        }
+      }
+    },
+    "Enter this code on the activation page, signed in to your Google account:": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدخل هذا الرمز في صفحة التفعيل بعد تسجيل الدخول إلى حسابك على Google:"
+          }
+        }
+      }
+    },
+    "Expands the description": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يوسّع الوصف"
+          }
+        }
+      }
+    },
+    "Export the log": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصدير السجلّ"
+          }
+        }
+      }
+    },
+    "Find a video to watch without its music.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابحث عن فيديو لتشاهده بدون موسيقى."
+          }
+        }
+      }
+    },
+    "Follow it in You → Downloads. The file also appears in Files on this iPhone.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تابِعه في أنت ← التنزيلات. يظهر الملف أيضًا في تطبيق الملفات على هذا الـ iPhone."
+          }
+        }
+      }
+    },
+    "Forward 10 seconds": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تقديم 10 ثوانٍ"
+          }
+        }
+      }
+    },
+    "Full screen": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ملء الشاشة"
+          }
+        }
+      }
+    },
+    "Getting a code…": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ الحصول على رمز…"
+          }
+        }
+      }
+    },
+    "History": {
+      "comment": "Android: header_history",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السجلّ"
+          }
+        }
+      }
+    },
+    "Home": {
+      "comment": "Android: header_home",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصفحة الرئيسية"
+          }
+        }
+      }
+    },
+    "Interrupted. Try again.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توقّف التنزيل. حاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "LIVE": {
+      "comment": "Android: badge_live",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مباشر"
+          }
+        }
+      }
+    },
+    "Language": {
+      "comment": "Android: mobile_settings_language",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اللغة"
+          }
+        }
+      }
+    },
+    "Live": {
+      "comment": "Android: badge_live",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مباشر"
+          }
+        }
+      }
+    },
+    "Loading…": {
+      "comment": "Android: loading",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ التحميل…"
+          }
+        }
+      }
+    },
+    "Maximum quality": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعلى جودة"
+          }
+        }
+      }
+    },
+    "Music removal": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة الموسيقى"
+          }
+        }
+      }
+    },
+    "No comments": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد تعليقات"
+          }
+        }
+      }
+    },
+    "Normal": {
+      "comment": "Android: mobile_speed_normal",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عادية"
+          }
+        }
+      }
+    },
+    "Nothing here yet.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد شيء هنا بعد."
+          }
+        }
+      }
+    },
+    "OK": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حسنًا"
+          }
+        }
+      }
+    },
+    "ONNX Runtime third-party notices": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إشعارات الجهات الخارجية لـ ONNX Runtime"
+          }
+        }
+      }
+    },
+    "On this iPhone": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "على هذا الـ iPhone"
+          }
+        }
+      }
+    },
+    "On this iPhone · %@": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "على هذا الـ iPhone · %@"
+          }
+        }
+      }
+    },
+    "Open a file": {
+      "comment": "Android: mobile_open_file",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح ملف من الهاتف"
+          }
+        }
+      }
+    },
+    "Opens the channel": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يفتح القناة"
+          }
+        }
+      }
+    },
+    "Or open yt.be/activate and type the code": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أو افتح yt.be/activate واكتب الرمز"
+          }
+        }
+      }
+    },
+    "Pause": {
+      "comment": "Android: mobile_player_pause",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف مؤقت"
+          }
+        }
+      }
+    },
+    "Picture in Picture": {
+      "comment": "Android: option_background_playback_pip",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صورة داخل صورة"
+          }
+        }
+      }
+    },
+    "Play": {
+      "comment": "Android: mobile_player_play",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشغيل"
+          }
+        }
+      }
+    },
+    "Playback": {
+      "comment": "Android: mobile_playback_channel_name",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التشغيل"
+          }
+        }
+      }
+    },
+    "Player settings": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعدادات المشغّل"
+          }
+        }
+      }
+    },
+    "Playlist": {
+      "comment": "Android: playlist",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قائمة التشغيل"
+          }
+        }
+      }
+    },
+    "Position": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الموضع"
+          }
+        }
+      }
+    },
+    "Prefer 60 fps": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفضيل 60 إطارًا في الثانية"
+          }
+        }
+      }
+    },
+    "Preparing voices…": {
+      "comment": "Android: musicless_preparing",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ تجهيز الأصوات…"
+          }
+        }
+      }
+    },
+    "Quality": {
+      "comment": "Android: mobile_player_quality",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الجودة"
+          }
+        }
+      }
+    },
+    "Re-download": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة التنزيل"
+          }
+        }
+      }
+    },
+    "Recent searches": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمليات البحث الأخيرة"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة"
+          }
+        }
+      }
+    },
+    "Remove from Watch later": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة من \"مشاهدة لاحقًا\""
+          }
+        }
+      }
+    },
+    "Remove music": {
+      "comment": "Android: mobile_settings_remove_music",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة الموسيقى"
+          }
+        }
+      }
+    },
+    "Removes it from Watch later": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يزيله من \"مشاهدة لاحقًا\""
+          }
+        }
+      }
+    },
+    "Removing music": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ إزالة الموسيقى"
+          }
+        }
+      }
+    },
+    "Replay": {
+      "comment": "Android: mobile_player_replay",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة التشغيل"
+          }
+        }
+      }
+    },
+    "Replies": {
+      "comment": "Android: mobile_comments_replies_title",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الردود"
+          }
+        }
+      }
+    },
+    "Results": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النتائج"
+          }
+        }
+      }
+    },
+    "Retry": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة المحاولة"
+          }
+        }
+      }
+    },
+    "Run again": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشغيل مرة أخرى"
+          }
+        }
+      }
+    },
+    "Run in the foreground": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التشغيل في المقدمة"
+          }
+        }
+      }
+    },
+    "Run with the screen locked": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التشغيل والشاشة مقفلة"
+          }
+        }
+      }
+    },
+    "Save to Watch later": {
+      "comment": "Android: add_video_to_watch_later",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ في \"مشاهدة لاحقًا\""
+          }
+        }
+      }
+    },
+    "Saved": {
+      "comment": "Android: mobile_watch_saved",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم الحفظ"
+          }
+        }
+      }
+    },
+    "Saved without music": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محفوظ بدون موسيقى"
+          }
+        }
+      }
+    },
+    "Saves it to Watch later": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يحفظه في \"مشاهدة لاحقًا\""
+          }
+        }
+      }
+    },
+    "Saving": {
+      "comment": "Android: mobile_settings_menu_save",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحفظ"
+          }
+        }
+      }
+    },
+    "Search": {
+      "comment": "Android: mobile_search_button",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بحث"
+          }
+        }
+      }
+    },
+    "Search YouTube": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البحث في YouTube"
+          }
+        }
+      }
+    },
+    "Search failed": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر البحث"
+          }
+        }
+      }
+    },
+    "Separation benchmark": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قياس أداء الفصل"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "comment": "Android: mobile_player_settings",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإعدادات"
+          }
+        }
+      }
+    },
+    "Share the log": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشاركة السجلّ"
+          }
+        }
+      }
+    },
+    "Show Home": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار الصفحة الرئيسية"
+          }
+        }
+      }
+    },
+    "Show Up next": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار «التالي»"
+          }
+        }
+      }
+    },
+    "Show less": {
+      "comment": "Android: mobile_comments_show_less",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض أقل"
+          }
+        }
+      }
+    },
+    "Show more": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض المزيد"
+          }
+        }
+      }
+    },
+    "Sign in": {
+      "comment": "Android: mobile_signin_title",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الدخول"
+          }
+        }
+      }
+    },
+    "Sign in to see the videos you've watched.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول لترى الفيديوهات التي شاهدتها."
+          }
+        }
+      }
+    },
+    "Sign in to see videos from the channels you follow.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول لعرض فيديوهات القنوات التي تتابعها."
+          }
+        }
+      }
+    },
+    "Sign out": {
+      "comment": "Android: mobile_accounts_sign_out",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الخروج"
+          }
+        }
+      }
+    },
+    "Sign out of this account?": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل تريد تسجيل الخروج من هذا الحساب؟"
+          }
+        }
+      }
+    },
+    "Sign-in stopped": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توقّف تسجيل الدخول"
+          }
+        }
+      }
+    },
+    "Sign-in was declined.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم رفض تسجيل الدخول."
+          }
+        }
+      }
+    },
+    "Signed in": {
+      "comment": "Android: signed_in_success",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم تسجيل الدخول"
+          }
+        }
+      }
+    },
+    "Speed": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السرعة"
+          }
+        }
+      }
+    },
+    "Status": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحالة"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف"
+          }
+        }
+      }
+    },
+    "Subscriptions": {
+      "comment": "Android: header_subscriptions",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاشتراكات"
+          }
+        }
+      }
+    },
+    "Synthetic wall at 1:00": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حاجز تجريبي عند 1:00"
+          }
+        }
+      }
+    },
+    "The app's language is set in iOS Settings, on the app's page.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُضبط لغة التطبيق من إعدادات iOS، في صفحة التطبيق."
+          }
+        }
+      }
+    },
+    "The code expired. Try again.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتهت صلاحية الرمز. حاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "The voice models run on this iPhone; nothing is sent anywhere. They download once.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعمل نماذج الصوت على هذا الـ iPhone ولا يُرسل شيء إلى أي مكان. تُنزَّل مرة واحدة فقط."
+          }
+        }
+      }
+    },
+    "This video couldn't be played.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تشغيل هذا الفيديو."
+          }
+        }
+      }
+    },
+    "Try again": {
+      "comment": "Android: mobile_comments_try_again",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة المحاولة"
+          }
+        }
+      }
+    },
+    "Up next": {
+      "comment": "Android: mobile_watch_related",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التالي"
+          }
+        }
+      }
+    },
+    "Upcoming": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قادم"
+          }
+        }
+      }
+    },
+    "Version": {
+      "comment": "Android: mobile_settings_version",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإصدار"
+          }
+        }
+      }
+    },
+    "Videos": {
+      "comment": "Android: mobile_channel_tab_videos",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفيديوهات"
+          }
+        }
+      }
+    },
+    "Videos you download appear here, and in Files on this iPhone.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تظهر هنا الفيديوهات التي تنزّلها، وفي تطبيق الملفات على هذا الـ iPhone."
+          }
+        }
+      }
+    },
+    "Videos you watch appear here.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تظهر هنا الفيديوهات التي تشاهدها."
+          }
+        }
+      }
+    },
+    "Voice models": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نماذج الصوت"
+          }
+        }
+      }
+    },
+    "Voice models failed: %@": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تجهيز نماذج الصوت: %@"
+          }
+        }
+      }
+    },
+    "Waiting for you to approve it…": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في انتظار موافقتك…"
+          }
+        }
+      }
+    },
+    "Waiting to download": {
+      "comment": "Android: mobile_download_state_queued",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في انتظار التنزيل"
+          }
+        }
+      }
+    },
+    "Watch (debug)": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المشاهدة (تصحيح)"
+          }
+        }
+      }
+    },
+    "Watch later": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشاهدة لاحقًا"
+          }
+        }
+      }
+    },
+    "Watched": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمت المشاهدة"
+          }
+        }
+      }
+    },
+    "Watched %lld%%": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمت مشاهدة %lld%%"
+          }
+        }
+      }
+    },
+    "You": {
+      "comment": "Android: mobile_nav_you",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت"
+          }
+        }
+      }
+    },
+    "YouTube didn't answer the search. Try again.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يستجب YouTube للبحث. حاول مرة أخرى."
+          }
+        }
+      }
+    },
+    "YouTube link or video id": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رابط YouTube أو معرّف الفيديو"
+          }
+        }
+      }
+    },
+    "Your account stays on this iPhone. It's used for your subscriptions and watch history, and for videos that need it.": {
+      "comment": "iOS only",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يبقى حسابك على هذا الـ iPhone. يُستخدم لاشتراكاتك وسجلّ المشاهدة وللفيديوهات التي تتطلبه."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

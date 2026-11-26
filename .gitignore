@@ -83,3 +83,15 @@ keystore.properties
 
 # Python bytecode from tools/*.py
 __pycache__/
+
+# iOS app (ios/): generated project, local signing config, build output, model cache
+ios/*.xcodeproj
+ios/build/
+ios/Config/Local.xcconfig
+ios/.models/
+ios/**/DerivedData
+ios/Packages/*/.build/
+ios/Packages/*/.swiftpm/
+ios/.vendor/
+ios/Packages/MusiclessCore/Vendor/
+ios/.fixtures/

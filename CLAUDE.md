@@ -10,6 +10,8 @@ phone-only port; pre-port history lives at the `tv-legacy` tag and the
 `upstream/master` remote (that's where the original `LiveDashManifestParser`,
 vendored ExoPlayer, and TV UI can still be read with `git show`).
 
+**iOS app** (native Swift, under `ios/`): read `ios/CLAUDE.md` before touching it; it has its own rules.
+
 Current state, open backlog, and deep context: **`docs/mobile-port/STATUS.md`**
 and **`docs/mobile-port/HANDOFF.md`** (read HANDOFF before touching the player
 or network stack). `docs/mobile-port/{ARCHITECTURE,ROADMAP}.md` predate the
