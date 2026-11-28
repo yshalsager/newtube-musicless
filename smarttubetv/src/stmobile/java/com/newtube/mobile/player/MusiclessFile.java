@@ -1,6 +1,7 @@
 package com.newtube.mobile.player;
 
 import android.content.Context;
+import android.net.Uri;
 import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaExtractor;
@@ -39,18 +40,31 @@ public final class MusiclessFile {
      * Returns early when cancelled, leaving {@code out} incomplete. Throws {@link Failure} rather
      * than writing a file that is silent or still has its music.
      */
-    public static void removeMusic(Context context, File audioPart, File out, Progress progress) throws IOException {
-        removeMusic(audioPart, out, progress, new MusiclessAudioProcessor(context));
+    public static void removeMusic(Context context, Source source, File out, Progress progress) throws IOException {
+        removeMusic(source, out, progress, new MusiclessAudioProcessor(context));
     }
 
-    static void removeMusic(File audioPart, File out, Progress progress, MusiclessAudioProcessor processor)
+    /** Where a {@link MediaExtractor} reads from: a downloaded part, or a file from the phone. */
+    public interface Source {
+        void open(MediaExtractor extractor) throws IOException;
+
+        static Source of(File file) {
+            return extractor -> extractor.setDataSource(file.getPath());
+        }
+
+        static Source of(Context context, Uri uri) {
+            return extractor -> extractor.setDataSource(context, uri, null);
+        }
+    }
+
+    static void removeMusic(Source input, File out, Progress progress, MusiclessAudioProcessor processor)
             throws IOException {
         MediaExtractor extractor = new MediaExtractor();
         MediaCodec decoder = null, encoder = null;
         MediaMuxer muxer = null;
         boolean muxing = false;
         try {
-            extractor.setDataSource(audioPart.getPath());
+            input.open(extractor);
             MediaFormat source = selectAudio(extractor);
             long durationUs = source.containsKey(MediaFormat.KEY_DURATION) ? source.getLong(MediaFormat.KEY_DURATION) : 0;
             decoder = MediaCodec.createDecoderByType(source.getString(MediaFormat.KEY_MIME));

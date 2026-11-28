@@ -115,6 +115,9 @@
     <string name="mobile_channel_tab_more">المزيد</string>
     <string name="mobile_nav_you">أنت</string>
     <string name="mobile_open_file">فتح ملف من الهاتف</string>
+    <string name="mobile_save_without_music">حفظ بدون موسيقى</string>
+    <string name="mobile_save_source_unreadable">تعذّرت قراءة الملف الأصلي. افتحه مرة أخرى لحفظه.</string>
+    <string name="mobile_download_pill_saved">تم الحفظ</string>
     <string name="mobile_you_explore">استكشاف</string>
     <string name="mobile_no_browser">لم يتم العثور على تطبيق لفتح هذا الرابط</string>
     <string name="mobile_add_device_title">إقران جهاز</string>

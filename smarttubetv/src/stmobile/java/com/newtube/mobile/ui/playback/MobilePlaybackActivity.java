@@ -7931,8 +7931,14 @@ public class MobilePlaybackActivity extends MobileActivity
         }
         updateDownloadPill();
         // A file from the phone (LocalMedia) has no YouTube id: no likes, share, save or channel.
+        // Its action row keeps only "Save without music" (updateDownloadPill shows or hides the row).
         boolean youTube = item.videoId != null;
-        findViewById(R.id.mobile_watch_actions).setVisibility(youTube ? View.VISIBLE : View.GONE);
+        for (int id : new int[] {R.id.mobile_watch_rating, R.id.mobile_watch_share, R.id.mobile_watch_save}) {
+            findViewById(id).setVisibility(youTube ? View.VISIBLE : View.GONE);
+        }
+        if (youTube) {
+            findViewById(R.id.mobile_watch_actions).setVisibility(View.VISIBLE);
+        }
         findViewById(R.id.mobile_watch_channel_row).setVisibility(youTube ? View.VISIBLE : View.GONE);
         // Channel name has the same bare-reload-Video blanking problem as the title above.
         if (isNewVideo || !TextUtils.isEmpty(item.getAuthor())) {
@@ -8353,10 +8359,13 @@ public class MobilePlaybackActivity extends MobileActivity
     @Nullable
     private DownloadItem currentDownload() {
         Video video = getVideo();
-        if (video == null || video.videoId == null) {
+        if (video == null) {
             return null;
         }
         DownloadRegistry registry = DownloadRegistry.instance(this);
+        if (video.videoId == null) {
+            return video.isLocal() ? registry.findForPhoneFile(video.localUri) : null;
+        }
         DownloadItem active = registry.findActive(video.videoId);
         return active != null ? active : registry.findDone(video.videoId, DownloadOption.KIND_VIDEO);
     }
@@ -8382,11 +8391,28 @@ public class MobilePlaybackActivity extends MobileActivity
 
     private void onDownloadTapped() {
         DownloadItem item = currentDownload();
+        Video video = getVideo();
         if (item != null) {
             DownloadMenu.show(this, item);
+        } else if (isPhoneFile(video)) {
+            saveWithoutMusic(video);
         } else {
-            VideoDownloads.request(this, getVideo());
+            VideoDownloads.request(this, video);
         }
+    }
+
+    private static boolean isPhoneFile(@Nullable Video video) {
+        return video != null && video.videoId == null && video.isLocal();
+    }
+
+    /** NEWTUBE(local-media): a copy of this phone file without its music, made like a download. */
+    private void saveWithoutMusic(Video video) {
+        android.net.Uri uri = android.net.Uri.parse(video.localUri);
+        String type = getContentResolver().getType(uri);
+        String title = video.title != null ? video.title.replaceFirst("\\.[A-Za-z0-9]{2,5}$", "").trim() : "";
+        com.newtube.mobile.downloads.MobileDownloadService.enqueue(this, DownloadItem.fromPhone(video.localUri,
+                title.isEmpty() ? "musicless" : title, type != null && type.startsWith("audio/")));
+        updateDownloadPill();
     }
 
     /**
@@ -8401,23 +8427,33 @@ public class MobilePlaybackActivity extends MobileActivity
         runOnUiThread(() -> {
             Video video = getVideo();
             DownloadItem item = currentDownload();
-            boolean offered = VideoDownloads.canDownload(video) || (video != null && video.isLocal()) || item != null;
+            boolean phone = isPhoneFile(video);
+            // A phone file is offered "Save without music" unless it is itself a copy without music.
+            boolean offered = phone
+                    ? item != null || !DownloadRegistry.instance(this).isVoicesOnly(video.localUri)
+                    : VideoDownloads.canDownload(video) || (video != null && video.isLocal()) || item != null;
             mWatchDownload.setVisibility(offered ? View.VISIBLE : View.GONE);
+            if (phone) {
+                findViewById(R.id.mobile_watch_actions).setVisibility(offered ? View.VISIBLE : View.GONE);
+            }
             if (!offered) {
                 return;
             }
             if (item != null && item.isDone()) {
                 mWatchDownloadIcon.setImageResource(R.drawable.ic_watch_downloaded);
-                mWatchDownloadLabel.setText(R.string.mobile_download_pill_downloaded);
+                mWatchDownloadLabel.setText(phone ? R.string.mobile_download_pill_saved : R.string.mobile_download_pill_downloaded);
             } else if (item != null && item.state == DownloadItem.STATE_DOWNLOADING && item.progressPercent() >= 0) {
                 mWatchDownloadIcon.setImageResource(R.drawable.ic_watch_download);
                 mWatchDownloadLabel.setText(item.progressPercent() + "%");
+            } else if (item != null && item.state == DownloadItem.STATE_PROCESSING && item.musicPercent >= 0) {
+                mWatchDownloadIcon.setImageResource(R.drawable.ic_watch_download);
+                mWatchDownloadLabel.setText(item.musicPercent + "%");
             } else if (item != null && item.isActive()) {
                 mWatchDownloadIcon.setImageResource(R.drawable.ic_watch_download);
                 mWatchDownloadLabel.setText(R.string.mobile_download_badge_queued);
             } else {
                 mWatchDownloadIcon.setImageResource(R.drawable.ic_watch_download);
-                mWatchDownloadLabel.setText(R.string.dialog_download);
+                mWatchDownloadLabel.setText(phone ? R.string.mobile_save_without_music : R.string.dialog_download);
             }
         });
     }

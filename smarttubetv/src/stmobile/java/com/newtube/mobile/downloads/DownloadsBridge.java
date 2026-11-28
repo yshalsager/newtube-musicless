@@ -96,7 +96,7 @@ public final class DownloadsBridge implements VideoDownloads.Handler {
             card = mCards.get(item.id);
             if (card == null) {
                 card = new Video();
-                card.videoId = item.videoId;
+                card.videoId = item.isFromPhone() ? null : item.videoId;
                 card.downloadId = item.id;
                 card.title = item.title;
                 card.author = item.author;

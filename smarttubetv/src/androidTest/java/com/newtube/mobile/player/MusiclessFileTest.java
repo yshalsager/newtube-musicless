@@ -40,7 +40,7 @@ public class MusiclessFileTest {
     private static void assertVoicesTrack(File in) throws Exception {
         File out = new File(in.getParentFile(), "voices.m4a");
         AtomicInteger lastPercent = new AtomicInteger(-1);
-        MusiclessFile.removeMusic(in, out, percent -> { lastPercent.set(percent); return true; },
+        MusiclessFile.removeMusic(MusiclessFile.Source.of(in), out, percent -> { lastPercent.set(percent); return true; },
                 new MusiclessAudioProcessor(new MusiclessAudioProcessor.Worker() {
                     @Override float[] infer(float[] block) { return block.clone(); }
                 }, Executors.newSingleThreadExecutor()));
@@ -62,7 +62,7 @@ public class MusiclessFileTest {
     public void failedSeparationIsAFailureNotASilentFile() throws Exception {
         File in = fixture("musicless/tone.m4a"), out = new File(in.getParentFile(), "voices.m4a");
         try {
-            MusiclessFile.removeMusic(in, out, percent -> true,
+            MusiclessFile.removeMusic(MusiclessFile.Source.of(in), out, percent -> true,
                     new MusiclessAudioProcessor(new MusiclessAudioProcessor.Worker() {
                         @Override float[] infer(float[] block) { throw new IllegalStateException("model broke"); }
                     }, Executors.newSingleThreadExecutor()));

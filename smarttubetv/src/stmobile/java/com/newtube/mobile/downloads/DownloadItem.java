@@ -49,6 +49,11 @@ public final class DownloadItem {
     public volatile long durationMs;
     /** The file's audio is voices only (music removed while downloading). */
     public volatile boolean voicesOnly;
+    /**
+     * A file from the phone saved without its music (no YouTube video): its content:// uri.
+     * {@link #videoId} is then a private placeholder that never reaches YouTube.
+     */
+    @Nullable public volatile String sourceUri;
     /** Short, user-facing failure reason (already localized) or null. */
     @Nullable public volatile String error;
 
@@ -90,6 +95,20 @@ public final class DownloadItem {
         item.audioLength = DownloadOptions.lengthOf(option.audio);
         item.bytesTotal = option.totalBytes;
         return item;
+    }
+
+    /** "Save without music" for a file from the phone. */
+    public static DownloadItem fromPhone(String sourceUri, String title, boolean audioOnly) {
+        String id = UUID.randomUUID().toString();
+        DownloadItem item = new DownloadItem(id, "local:" + id, title, null, null,
+                audioOnly ? DownloadOption.KIND_AUDIO : DownloadOption.KIND_VIDEO, null, null, null,
+                System.currentTimeMillis());
+        item.sourceUri = sourceUri;
+        return item;
+    }
+
+    public boolean isFromPhone() {
+        return sourceUri != null;
     }
 
     public boolean isAudioOnly() {
@@ -138,6 +157,7 @@ public final class DownloadItem {
         json.putOpt("thumbPath", thumbPath);
         json.put("durationMs", durationMs);
         json.put("voicesOnly", voicesOnly);
+        json.putOpt("sourceUri", sourceUri);
         json.putOpt("error", error);
         return json;
     }
@@ -157,6 +177,7 @@ public final class DownloadItem {
         item.thumbPath = optString(json, "thumbPath");
         item.durationMs = json.optLong("durationMs", 0);
         item.voicesOnly = json.optBoolean("voicesOnly", false);
+        item.sourceUri = optString(json, "sourceUri");
         item.error = optString(json, "error");
         return item;
     }

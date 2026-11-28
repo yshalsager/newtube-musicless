@@ -730,6 +730,7 @@
 
                     <!-- padding 0: an inset background otherwise becomes the view's padding. -->
                     <LinearLayout
+                        android:id="@+id/mobile_watch_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/mobile_watch_pill_bg_touch"

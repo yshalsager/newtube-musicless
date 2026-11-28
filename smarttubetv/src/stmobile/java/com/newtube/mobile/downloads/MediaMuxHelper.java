@@ -7,6 +7,8 @@ import android.media.MediaMuxer;
 
 import androidx.annotation.Nullable;
 
+import com.newtube.mobile.player.MusiclessFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -36,10 +38,16 @@ final class MediaMuxHelper {
     /**
      * @return the media duration in ms when the tracks report it, else 0
      */
-    static long mux(@Nullable File videoPart, @Nullable File audioPart, MediaMuxer muxer, Progress progress)
-            throws IOException {
+    static long mux(@Nullable MusiclessFile.Source videoPart, @Nullable MusiclessFile.Source audioPart,
+                    MediaMuxer muxer, Progress progress) throws IOException {
         Track video = videoPart != null ? Track.open(videoPart, "video/", VIDEO_BUFFER_BYTES) : null;
-        Track audio = audioPart != null ? Track.open(audioPart, "audio/", AUDIO_BUFFER_BYTES) : null;
+        Track audio;
+        try {
+            audio = audioPart != null ? Track.open(audioPart, "audio/", AUDIO_BUFFER_BYTES) : null;
+        } catch (IOException | RuntimeException e) {
+            if (video != null) video.release();
+            throw e;
+        }
 
         if (video == null && audio == null) {
             throw new IOException("no tracks to mux");
@@ -120,10 +128,10 @@ final class MediaMuxHelper {
             this.buffer = ByteBuffer.allocateDirect(bufferBytes);
         }
 
-        static Track open(File file, String mimePrefix, int bufferBytes) throws IOException {
+        static Track open(MusiclessFile.Source source, String mimePrefix, int bufferBytes) throws IOException {
             MediaExtractor extractor = new MediaExtractor();
             try {
-                extractor.setDataSource(file.getAbsolutePath());
+                source.open(extractor);
                 for (int i = 0; i < extractor.getTrackCount(); i++) {
                     MediaFormat format = extractor.getTrackFormat(i);
                     String mime = format.getString(MediaFormat.KEY_MIME);
@@ -139,7 +147,7 @@ final class MediaMuxHelper {
                 throw e instanceof IOException ? (IOException) e : new IOException(e);
             }
             extractor.release();
-            throw new IOException("no " + mimePrefix + "* track in " + file.getName());
+            throw new IOException("no " + mimePrefix + "* track");
         }
 
         long durationUs() {

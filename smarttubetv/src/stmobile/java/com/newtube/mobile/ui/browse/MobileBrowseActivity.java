@@ -1395,6 +1395,11 @@ public class MobileBrowseActivity extends MobileActivity
             DownloadMenu.show(this, download);
             return;
         }
+        // A phone file saved without music has no YouTube id for the presenter to route by.
+        if (download != null && download.isFromPhone()) {
+            DownloadMenu.play(this, download);
+            return;
+        }
 
         mPresenter.onVideoItemSelected(video);
 

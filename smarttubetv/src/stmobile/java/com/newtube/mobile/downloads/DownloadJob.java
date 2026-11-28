@@ -1,6 +1,10 @@
 package com.newtube.mobile.downloads;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.media.MediaMuxer;
 import android.util.Log;
 
@@ -18,6 +22,8 @@ import com.newtube.mobile.player.MusiclessFile;
 import com.newtube.mobile.player.MusiclessPrefs;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -51,25 +57,30 @@ final class DownloadJob {
     }
 
     void run() {
-        mItem.state = DownloadItem.STATE_DOWNLOADING;
+        boolean phone = mItem.isFromPhone();
+        mItem.state = phone ? DownloadItem.STATE_PROCESSING : DownloadItem.STATE_DOWNLOADING;
         mItem.error = null;
         mRegistry.notifyChanged();
 
-        File videoPart = mItem.isAudioOnly() ? null : new File(DownloadRegistry.partsDir(mContext), mItem.id + ".video");
-        File audioPart = mItem.audioItag != null ? new File(DownloadRegistry.partsDir(mContext), mItem.id + ".audio") : null;
+        File videoPart = phone || mItem.isAudioOnly() ? null : new File(DownloadRegistry.partsDir(mContext), mItem.id + ".video");
+        File audioPart = !phone && mItem.audioItag != null ? new File(DownloadRegistry.partsDir(mContext), mItem.id + ".audio") : null;
         // A progressive (single-file) rung has no audio part: its audio track is in the video part.
         File audioSource = audioPart != null ? audioPart : videoPart;
-        File voicesPart = audioSource != null ? new File(DownloadRegistry.partsDir(mContext), mItem.id + ".voices") : null;
+        File voicesPart = phone || audioSource != null ? new File(DownloadRegistry.partsDir(mContext), mItem.id + ".voices") : null;
 
         try {
-            fetchThumbnail();
-            fetchParts(videoPart, audioPart);
-            if (mItem.cancelRequested) {
-                throw new StreamFetcher.CancelledException();
+            if (phone) {
+                savePhoneFile(voicesPart);
+            } else {
+                fetchThumbnail();
+                fetchParts(videoPart, audioPart);
+                if (mItem.cancelRequested) {
+                    throw new StreamFetcher.CancelledException();
+                }
+                File audio = removeMusic(audioSource, voicesPart);
+                mItem.voicesOnly = audio != audioSource;
+                publish(source(videoPart), source(audio));
             }
-            File audio = removeMusic(audioSource, voicesPart);
-            mItem.voicesOnly = audio != audioSource;
-            publish(videoPart, audio);
             mItem.state = DownloadItem.STATE_DONE;
             mItem.error = null;
             retirePreviousCopies();
@@ -81,6 +92,9 @@ final class DownloadJob {
         } catch (MusiclessFile.Failure e) {
             Log.w(TAG, "music removal failed: " + e);
             fail(mContext.getString(R.string.mobile_download_error_music));
+        } catch (SourceUnreadable e) {
+            Log.w(TAG, "phone file unreadable: " + e);
+            fail(mContext.getString(R.string.mobile_save_source_unreadable));
         } catch (StreamFetcher.UrlRefusedException e) {
             Log.w(TAG, "download refused: " + e);
             fail(mContext.getString(R.string.mobile_download_error_link));
@@ -306,11 +320,74 @@ final class DownloadJob {
         if (audioPart == null || !MusiclessPrefs.isOn(mContext)) {
             return audioPart;
         }
+        separate(MusiclessFile.Source.of(audioPart), voicesPart);
+        return voicesPart;
+    }
+
+    /**
+     * "Save without music" for a file from the phone: nothing to fetch. Music is removed even with
+     * the playback switch off - a copy without it is the whole point. The source file is only read.
+     */
+    private void savePhoneFile(File voicesPart) throws IOException {
+        Uri uri = Uri.parse(mItem.sourceUri);
+        // The app's read grant ends with a reboot, and the file may be gone: a Retry can't fix either.
+        try (ParcelFileDescriptor ignored = mContext.getContentResolver().openFileDescriptor(uri, "r")) {
+        } catch (SecurityException | FileNotFoundException e) {
+            throw new SourceUnreadable(e);
+        }
+        MusiclessFile.Source source = MusiclessFile.Source.of(mContext, uri);
+        saveFrame(uri);
+        separate(source, voicesPart);
+        mItem.voicesOnly = true;
+        publish(mItem.isAudioOnly() ? null : source, MusiclessFile.Source.of(voicesPart));
+    }
+
+    private static final class SourceUnreadable extends IOException {
+        SourceUnreadable(Exception cause) {
+            super(cause);
+        }
+    }
+
+    /** The Downloads card's picture for a phone video: a frame one second in. */
+    private void saveFrame(Uri uri) {
+        if (mItem.isAudioOnly() || mItem.thumbPath != null && new File(mItem.thumbPath).exists()) {
+            return;
+        }
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(mContext, uri);
+            Bitmap frame = retriever.getFrameAtTime(1_000_000);
+            if (frame == null) {
+                return;
+            }
+            int width = Math.min(480, frame.getWidth());
+            Bitmap small = Bitmap.createScaledBitmap(frame, width, Math.max(1, frame.getHeight() * width / frame.getWidth()), true);
+            File thumb = new File(DownloadRegistry.dir(mContext), mItem.id + ".jpg");
+            try (FileOutputStream out = new FileOutputStream(thumb)) {
+                small.compress(Bitmap.CompressFormat.JPEG, 85, out);
+            }
+            mItem.thumbPath = thumb.getAbsolutePath();
+        } catch (IOException | RuntimeException e) {
+            Log.w(TAG, "no frame for " + uri + ": " + e);
+        } finally {
+            try {
+                retriever.release();
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    @Nullable
+    private static MusiclessFile.Source source(@Nullable File file) {
+        return file != null ? MusiclessFile.Source.of(file) : null;
+    }
+
+    private void separate(MusiclessFile.Source source, File voicesPart) throws IOException {
         mItem.state = DownloadItem.STATE_PROCESSING;
         mRegistry.notifyChanged();
         mListener.onProgress(mItem);
         try {
-            MusiclessFile.removeMusic(mContext, audioPart, voicesPart, percent -> {
+            MusiclessFile.removeMusic(mContext, source, voicesPart, percent -> {
                 if (percent != mItem.musicPercent) {
                     // At most ~100 changes, so no throttle: a skipped 0% would leave "Finishing…" up.
                     mItem.musicPercent = percent;
@@ -325,19 +402,19 @@ final class DownloadJob {
         if (mItem.cancelRequested) {
             throw new StreamFetcher.CancelledException();
         }
-        return voicesPart;
     }
 
     // ---------------------------------------------------------------------------------
     // Publish
     // ---------------------------------------------------------------------------------
 
-    private void publish(@Nullable File videoPart, @Nullable File audioPart) throws IOException {
+    private void publish(@Nullable MusiclessFile.Source videoPart, @Nullable MusiclessFile.Source audioPart) throws IOException {
         mItem.state = DownloadItem.STATE_PROCESSING;
         mRegistry.notifyChanged();
         mListener.onProgress(mItem);
 
-        String fileName = DownloadOptions.fileNameFor(mItem.title, mItem.videoId, mItem.isAudioOnly() ? "m4a" : "mp4");
+        String title = mItem.isFromPhone() ? mItem.title + " (musicless)" : mItem.title;
+        String fileName = DownloadOptions.fileNameFor(title, mItem.videoId, mItem.isAudioOnly() ? "m4a" : "mp4");
         DownloadStorage.Target target = mStorage.create(fileName, mItem.isAudioOnly());
         MediaMuxer muxer = null;
         try {

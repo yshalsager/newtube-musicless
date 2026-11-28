@@ -122,6 +122,21 @@ public final class DownloadRegistry {
         return null;
     }
 
+    /** The save of the phone file at {@code uri} (running first), or the saved copy that is {@code uri}. */
+    @Nullable
+    public synchronized DownloadItem findForPhoneFile(String uri) {
+        DownloadItem done = null;
+        for (DownloadItem item : mItems) {
+            if (item.isFromPhone() && item.isActive() && uri.equals(item.sourceUri)) {
+                return item;
+            }
+            if (item.isDone() && (uri.equals(item.outputUri) || item.isFromPhone() && uri.equals(item.sourceUri))) {
+                done = item;
+            }
+        }
+        return done;
+    }
+
     /** Whether {@code uri} is a finished download whose music was already removed. */
     public synchronized boolean isVoicesOnly(String uri) {
         for (DownloadItem item : mItems) {

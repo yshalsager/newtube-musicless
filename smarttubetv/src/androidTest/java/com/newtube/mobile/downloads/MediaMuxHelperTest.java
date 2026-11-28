@@ -9,6 +9,8 @@ import android.media.MediaMuxer;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.newtube.mobile.player.MusiclessFile;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,7 +26,7 @@ public class MediaMuxHelperTest {
     public void progressiveFileKeepsItsAudio() throws Exception {
         File in = asset("musicless/muxed.mp4"), out = new File(in.getParentFile(), "muxed-out.mp4");
         MediaMuxer muxer = new MediaMuxer(out.getPath(), MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
-        MediaMuxHelper.mux(in, in, muxer, (timeUs, durationUs) -> true);
+        MediaMuxHelper.mux(MusiclessFile.Source.of(in), MusiclessFile.Source.of(in), muxer, (timeUs, durationUs) -> true);
         muxer.release();
 
         MediaExtractor extractor = new MediaExtractor();
@@ -39,7 +41,7 @@ public class MediaMuxHelperTest {
     public void keepsTheVideoRotation() throws Exception {
         File in = asset("musicless/rotated.mp4"), out = new File(in.getParentFile(), "rotated-out.mp4");
         MediaMuxer muxer = new MediaMuxer(out.getPath(), MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
-        MediaMuxHelper.mux(in, in, muxer, (timeUs, durationUs) -> true);
+        MediaMuxHelper.mux(MusiclessFile.Source.of(in), MusiclessFile.Source.of(in), muxer, (timeUs, durationUs) -> true);
         muxer.release();
 
         int rotation = rotation(in);
