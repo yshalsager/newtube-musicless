@@ -11,10 +11,23 @@ name: Build Musicless release
 #
 # Secrets, in the `musicless-release` environment: MUSICLESS_KEYSTORE_BASE64 (the .p12, base64),
 # MUSICLESS_KEYSTORE_PASSWORD (store and key password) and MUSICLESS_KEY_ALIAS.
+#
+# Publishing the release runs the announce job: tools/musicless_telegram.py posts the Arabic
+# changelog and download links to a Telegram channel. Configure it in the same environment:
+# TELEGRAM_BOT_TOKEN (secret; the bot must be an admin of the channel) and TELEGRAM_CHAT_ID
+# (variable or secret: @channel or -100...). Without both it posts nothing. Run the workflow by
+# hand with a tag to post a published release again.
 
 on:
   push:
     tags: ["v*-musicless.*"]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Published release to post to Telegram, e.g. v1.17.1-musicless.5"
+        required: true
 
 permissions:
   contents: read
@@ -25,6 +38,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: musicless-release
@@ -165,3 +179,35 @@ jobs:
             gh release create "$TAG" dist/* --draft --verify-tag --title "NewTube Musicless ${TAG#v}" \
               --notes-file "$RUNNER_TEMP/notes.md"
           fi
+
+  announce:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'release' && !github.event.release.prerelease &&
+       contains(github.event.release.tag_name, '-musicless.'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: musicless-release
+    permissions:
+      contents: read
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: tools
+          persist-credentials: false
+
+      - name: Post to Telegram
+        run: |
+          set -euo pipefail
+          if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+            echo "::notice::No TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in the musicless-release environment; nothing posted."
+            exit 0
+          fi
+          python3 tools/musicless_telegram.py "$TAG"
