@@ -34,7 +34,8 @@ final class DownloadProgressText {
                         ? context.getString(R.string.mobile_download_audio_only)
                         : item.qualityLabel != null ? item.qualityLabel : "";
                 String size = DownloadOptions.formatBytes(item.bytesTotal);
-                return size.isEmpty() ? quality : quality + com.newtube.mobile.ui.common.MetaSeparator.DOT + size;
+                return size.isEmpty() || quality.isEmpty() ? quality + size
+                        : quality + com.newtube.mobile.ui.common.MetaSeparator.DOT + size;
             }
         }
     }
