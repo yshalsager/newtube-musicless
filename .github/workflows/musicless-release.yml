@@ -13,10 +13,11 @@ name: Build Musicless release
 # MUSICLESS_KEYSTORE_PASSWORD (store and key password) and MUSICLESS_KEY_ALIAS.
 #
 # Publishing the release runs the announce job: tools/musicless_telegram.py posts the Arabic
-# changelog and download links to a Telegram channel. Configure it in the same environment:
-# TELEGRAM_BOT_TOKEN (secret; the bot must be an admin of the channel) and TELEGRAM_CHAT_ID
-# (variable or secret: @channel or -100...). Without both it posts nothing. Run the workflow by
-# hand with a tag to post a published release again.
+# changelog and download links to a Telegram channel. Configure it in the `telegram` environment
+# (not musicless-release, which keeps the signing key to release tags; a manual run starts from
+# the branch): TELEGRAM_BOT_TOKEN (secret; the bot must be an admin of the channel) and
+# TELEGRAM_CHAT_ID (variable or secret: @channel or -100...). Without both it posts nothing.
+# Run the workflow by hand with a tag to post a published release again.
 
 on:
   push:
@@ -187,7 +188,7 @@ jobs:
        contains(github.event.release.tag_name, '-musicless.'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    environment: musicless-release
+    environment: telegram
     permissions:
       contents: read
     env:
@@ -207,7 +208,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
-            echo "::notice::No TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in the musicless-release environment; nothing posted."
+            echo "::notice::No TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in the telegram environment; nothing posted."
             exit 0
           fi
           python3 tools/musicless_telegram.py "$TAG"
