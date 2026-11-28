@@ -50,6 +50,10 @@ final class MediaMuxHelper {
             if (video != null) {
                 video.muxerTrack = muxer.addTrack(video.format);
                 durationUs = Math.max(durationUs, video.durationUs());
+                // A phone recording held upright is stored sideways plus a rotation tag.
+                if (video.format.containsKey(MediaFormat.KEY_ROTATION)) {
+                    muxer.setOrientationHint(video.format.getInteger(MediaFormat.KEY_ROTATION));
+                }
             }
             if (audio != null) {
                 audio.muxerTrack = muxer.addTrack(audio.format);

@@ -1,6 +1,7 @@
 package com.newtube.mobile.downloads;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import android.media.MediaExtractor;
 import android.media.MediaMuxer;
@@ -31,6 +32,36 @@ public class MediaMuxHelperTest {
         int count = extractor.getTrackCount();
         extractor.release();
         assertEquals(2, count);
+    }
+
+    /** A phone recording held upright carries a rotation tag; the saved copy must keep it. */
+    @Test(timeout = 60000)
+    public void keepsTheVideoRotation() throws Exception {
+        File in = asset("musicless/rotated.mp4"), out = new File(in.getParentFile(), "rotated-out.mp4");
+        MediaMuxer muxer = new MediaMuxer(out.getPath(), MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+        MediaMuxHelper.mux(in, in, muxer, (timeUs, durationUs) -> true);
+        muxer.release();
+
+        int rotation = rotation(in);
+        assertNotEquals(0, rotation);
+        assertEquals(rotation, rotation(out));
+    }
+
+    private static int rotation(File file) throws Exception {
+        MediaExtractor extractor = new MediaExtractor();
+        try {
+            extractor.setDataSource(file.getPath());
+            for (int i = 0; i < extractor.getTrackCount(); i++) {
+                android.media.MediaFormat format = extractor.getTrackFormat(i);
+                if (format.getString(android.media.MediaFormat.KEY_MIME).startsWith("video/")) {
+                    return format.containsKey(android.media.MediaFormat.KEY_ROTATION)
+                            ? format.getInteger(android.media.MediaFormat.KEY_ROTATION) : 0;
+                }
+            }
+            return 0;
+        } finally {
+            extractor.release();
+        }
     }
 
     static File asset(String name) throws Exception {
