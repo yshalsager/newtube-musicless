@@ -52,6 +52,8 @@
   .dl-sub { font-size: .82rem; opacity: .85; }
   .size { display: block; direction: ltr; unicode-bidi: isolate; white-space: nowrap; font-size: .78rem; opacity: .8; }
   .version { margin-top: 12px; font-size: .9rem; opacity: .85; min-height: 1.6em; }
+  .count { font-size: .9rem; opacity: .85; }
+  .count .ltr { font-weight: 700; }
   section { padding: 44px 0 8px; }
   h2 { font-size: 1.5rem; margin: 0 0 16px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
@@ -101,6 +103,7 @@
       </div>
     </div>
     <div class="version" id="version">لأجهزة أندرويد 7.0 فأحدث</div>
+    <div class="count" id="count" hidden>عدد التنزيلات: <span class="ltr"></span></div>
   </div>
 </header>
 
@@ -110,13 +113,19 @@
     <h2>ماذا يقدّم؟</h2>
     <div class="grid">
       <div class="card"><h3>إزالة الموسيقى تلقائيًا</h3>
-        <p>يفصل التطبيق صوت كل فيديو إلى أصوات وموسيقى بنموذج ذكاء اصطناعي صغير، ويشغّل الأصوات فقط. تُشغّله وتُوقفه من الإعدادات أو من قائمة المشغّل.</p></div>
-      <div class="card"><h3>على هاتفك، بلا خوادم</h3>
-        <p>تتم المعالجة كلها على جهازك؛ لا يُرسَل أي صوت إلى أي خادم.</p></div>
+        <p>يفصل التطبيق صوت كل فيديو إلى أصوات وموسيقى بنموذج ذكاء اصطناعي صغير يعمل على هاتفك نفسه، دون إرسال أي صوت إلى خادم، ويشغّل الأصوات فقط. تُشغّله وتُوقفه من الإعدادات أو من قائمة المشغّل.</p></div>
+      <div class="card"><h3>تنزيلات بلا موسيقى</h3>
+        <p>نزّل الفيديو للمشاهدة دون اتصال وإزالة الموسيقى مفعّلة، فتُحذف من الملف نفسه، ويبقى بلا موسيقى حتى في أي تطبيق آخر.</p></div>
+      <div class="card"><h3>ملفات هاتفك أيضًا</h3>
+        <p>افتح أي فيديو أو ملف صوتي من هاتفك، من التطبيق أو من «فتح باستخدام»، فتُزال موسيقاه أثناء التشغيل، ويكمل كل ملف من حيث توقفت.</p></div>
+      <div class="card"><h3>احفظ نسخة بلا موسيقى</h3>
+        <p>زر «حفظ بدون موسيقى» يصنع من ملف على هاتفك نسخة جديدة بلا موسيقى تعمل في أي تطبيق، ويبقى الملف الأصلي كما هو.</p></div>
+      <div class="card"><h3>ملفات الترجمة</h3>
+        <p>أضف ترجمة من ملف للفيديوهات المنزّلة وملفات الهاتف: <span class="ltr">SRT</span> و<span class="ltr">VTT</span> و<span class="ltr">ASS</span> و<span class="ltr">TTML</span>، وتُقرأ الترجمات العربية القديمة بترميزها الصحيح.</p></div>
       <div class="card"><h3>إعدادات مناسبة من أول تشغيل</h3>
         <p>واجهة عربية، بلا مقاطع Shorts ولا الصفحة الرئيسية، بلا اقتراحات «التالي»، وصور مصغّرة من لقطات الفيديو نفسه بدل صور الناشر.</p></div>
       <div class="card"><h3>كل مزايا NewTube</h3>
-        <p>تسجيل دخول اختياري بحسابك، تشغيل في الخلفية، صورة داخل صورة، وحفظ الفيديوهات للمشاهدة دون اتصال.</p></div>
+        <p>تسجيل دخول اختياري بحسابك، وتشغيل في الخلفية، وصورة داخل صورة.</p></div>
       <div class="card"><h3>تحديثات تلقائية</h3>
         <p>يُثبَّت بجانب NewTube الرسمي دون أن يستبدله، ويُبلغك بالإصدارات الجديدة من تلقاء نفسه.</p></div>
       <div class="card"><h3>مجاني ومفتوح المصدر</h3>
@@ -197,6 +206,22 @@
       v.appendChild(document.createTextNode(" · لأجهزة أندرويد 7.0 فأحدث"));
     })
     .catch(function () { /* keep the release-page links */ });
+
+  // Every APK download so far: manual downloads and in-app updates (models and update feed excluded).
+  // shortcut: reads the newest 100 releases only, page through them past that.
+  fetch("https://api.github.com/repos/yshalsager/newtube-musicless/releases?per_page=100")
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (list) {
+      var total = 0;
+      list.forEach(function (rel) {
+        (rel.assets || []).forEach(function (a) { if (/\.apk$/.test(a.name)) total += a.download_count; });
+      });
+      if (!total) return;
+      var c = document.getElementById("count");
+      c.querySelector(".ltr").textContent = total.toLocaleString("en");
+      c.hidden = false;
+    })
+    .catch(function () { /* no counter */ });
 </script>
 </body>
 </html>
