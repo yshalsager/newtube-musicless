@@ -185,7 +185,10 @@ public final class MusiclessFile {
                     if (muxing) muxer.stop();
                 } catch (RuntimeException ignored) {
                 }
-                muxer.release();
+                try {
+                    muxer.release();
+                } catch (RuntimeException ignored) { // Android 7 re-runs the failed stop() in release()
+                }
             }
             extractor.release();
         }
